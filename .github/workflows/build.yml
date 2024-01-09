@@ -1,0 +1,34 @@
+name: Build preset
+
+on:
+  # Used when triggering this workflow from another workflow
+  workflow_call:
+    inputs:
+      godot-export-preset:
+        required: true
+        type: string
+
+env:
+  EXPORT_NAME: godot-wild-jam-65
+
+jobs:
+  build:
+    name: Build ${{ inputs.godot-export-preset }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Export
+      id: export
+      uses: manleydev/build-godot-action@v1.5.0
+      with:
+        name: ${{ env.EXPORT_NAME }}
+        preset: ${{ inputs.godot-export-preset }}
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.EXPORT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
+        path: ${{ github.workspace }}/${{ steps.export.outputs.build }}
