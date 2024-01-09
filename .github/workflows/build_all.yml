@@ -1,0 +1,15 @@
+name: Build all presets
+
+on: [pull_request, workflow_call]
+
+jobs:
+  build_all:
+    name: Build all presets
+    strategy:
+      matrix:
+        godot-export-preset: ['linux', 'mac', 'windows', 'web']
+
+    uses: ./.github/workflows/build_one.yml
+    with:
+      godot-export-preset: ${{ matrix.godot-export-preset }}
+    secrets: inherit
