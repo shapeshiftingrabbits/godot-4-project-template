@@ -1,0 +1,44 @@
+name: Release build of one platform to production channels
+
+on:
+  # Used when triggering this workflow from another workflow
+  workflow_call:
+    inputs:
+      godot-export-preset:
+        required: true
+        type: string
+
+env:
+  # duplicated setting from build_one.yml, can we reference it instead?
+  EXPORT_NAME: godot-wild-jam-65
+  RELEASE_NAME: "Godot Wild Jam 65"
+
+jobs:
+  build_one:
+    name: Build preset
+    uses: ./.github/workflows/build_one.yml
+    with:
+      godot-export-preset: ${{ inputs.godot-export-preset }}
+    secrets: inherit
+
+  release_to_itch:
+    needs: [build_one]
+    name: Release build to Itch.io production channel
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v4
+      id: download
+      with:
+        name: ${{ env.EXPORT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
+        path: ${{ env.RELEASE_NAME }} ${{ inputs.godot-export-preset }}-${{ github.ref_name }}
+
+    - name: Release ${{ inputs.godot-export-preset }} build to Itch.io production channel
+      uses: manleydev/butler-publish-itchio-action@v1.0.3
+      env:
+        BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+        CHANNEL: ${{ inputs.godot-export-preset }}
+        ITCH_GAME: ${{ secrets.ITCH_GAME }}
+        ITCH_USER: ${{ secrets.ITCH_USER }}
+        PACKAGE: ${{ env.RELEASE_NAME }} ${{ inputs.godot-export-preset }}-${{ github.ref_name }}
+        VERSION: ${{ github.ref_name }}
