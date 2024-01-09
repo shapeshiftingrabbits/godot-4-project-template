@@ -9,7 +9,7 @@ jobs:
       matrix:
         godot-export-preset: ['linux', 'mac', 'windows', 'web']
 
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build_one.yml
     with:
       godot-export-preset: ${{ matrix.godot-export-preset }}
     secrets: inherit

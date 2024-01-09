@@ -1,4 +1,4 @@
-name: Build preset
+name: Build one specific preset
 
 on:
   # Used when triggering this workflow from another workflow
