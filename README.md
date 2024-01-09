@@ -7,7 +7,7 @@ flowchart TB
 
     tag_push{{"Git tag 'v*' pushed"}}
     release_production_all["Release builds of all presets to production channels"]
-    release_production_one["Release build of one preset to its production channel"]:::todo
+    release_production_one["Release build of one preset to its production channel"]
 
     release_test_all_manual_trigger{{"Manual trigger"}}:::todo
     release_test_all["Release builds of all presets to test channels"]:::todo
