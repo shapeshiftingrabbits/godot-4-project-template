@@ -5,39 +5,14 @@ on:
     tags:
       - 'v*'
 
-env:
-  # duplicated setting from build.yml, can we reference it instead?
-  EXPORT_NAME: godot-wild-jam-65
-  RELEASE_NAME: "Godot Wild Jam 65"
-
 jobs:
-  build_all:
-    name: Build all presets
-    uses: ./.github/workflows/build_all.yml
-    secrets: inherit
-
-  release_to_itch:
-    needs: [build_all]
-    name: Release all builds to Itch.io production channels
-    runs-on: ubuntu-latest
+  release_all:
+    name: Release all presets to production channels
     strategy:
-      fail-fast: false
       matrix:
         godot-export-preset: ['linux', 'mac', 'windows', 'web']
 
-    steps:
-    - uses: actions/download-artifact@v4
-      id: download
-      with:
-        name: ${{ env.EXPORT_NAME }}-${{ matrix.godot-export-preset }}-${{ github.sha }}
-        path: ${{ env.RELEASE_NAME }} ${{ matrix.godot-export-preset }}-${{ github.ref_name }}
-
-    - name: Release ${{ matrix.godot-export-preset }} build to Itch.io production channel
-      uses: manleydev/butler-publish-itchio-action@v1.0.3
-      env:
-        BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-        CHANNEL: ${{ matrix.godot-export-preset }}
-        ITCH_GAME: ${{ secrets.ITCH_GAME }}
-        ITCH_USER: ${{ secrets.ITCH_USER }}
-        PACKAGE: ${{ env.RELEASE_NAME }} ${{ matrix.godot-export-preset }}-${{ github.ref_name }}
-        VERSION: ${{ github.ref_name }}
+    uses: ./.github/workflows/release_one.yml
+    with:
+      godot-export-preset: ${{ matrix.godot-export-preset }}
+    secrets: inherit
