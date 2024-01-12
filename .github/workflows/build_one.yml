@@ -45,6 +45,7 @@ jobs:
       with:
         name: ${{ env.EXPORT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
         path: ${{ github.workspace }}/${{ steps.export.outputs.build }}
+        if-no-files-found: error
 
     - name: Add artifact name to output
       id: add-artifact-name
