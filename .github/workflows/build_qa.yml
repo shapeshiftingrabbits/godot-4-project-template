@@ -11,3 +11,19 @@ jobs:
     uses: ./.github/workflows/build_all.yml
     with:
       debug-mode: true
+
+  tag_commit:
+    needs: [build_all]
+    name: Tag commit
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Create tag qa-${{ github.run_number }}
+      uses: mathieudutour/github-tag-action@v6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        custom_tag: qa-${{ github.run_number }}
+        tag_prefix: ""
