@@ -13,30 +13,12 @@ jobs:
       godot-export-preset: linux
       debug-mode: false
 
-  release_linux:
-    needs: [build_linux]
-    name: Release
-    uses: ./.github/workflows/release_one.yml
-    with:
-      release-channel: linux-production
-      artifact-name: ${{ needs.build_linux.outputs.artifact-name }}
-    secrets: inherit
-
   build_mac:
     name: Build
     uses: ./.github/workflows/build_one.yml
     with:
       godot-export-preset: mac
       debug-mode: false
-
-  release_mac:
-    needs: [build_mac]
-    name: Release
-    uses: ./.github/workflows/release_one.yml
-    with:
-      release-channel: mac-production
-      artifact-name: ${{ needs.build_mac.outputs.artifact-name }}
-    secrets: inherit
 
   build_web:
     name: Build
@@ -45,15 +27,6 @@ jobs:
       godot-export-preset: web
       debug-mode: false
 
-  release_web:
-    needs: [build_web]
-    name: Release
-    uses: ./.github/workflows/release_one.yml
-    with:
-      release-channel: web-production
-      artifact-name: ${{ needs.build_web.outputs.artifact-name }}
-    secrets: inherit
-
   build_windows:
     name: Build
     uses: ./.github/workflows/build_one.yml
@@ -61,8 +34,35 @@ jobs:
       godot-export-preset: windows
       debug-mode: false
 
+  release_linux:
+    needs: [build_linux, build_mac, build_web, build_windows]
+    name: Release
+    uses: ./.github/workflows/release_one.yml
+    with:
+      release-channel: linux-production
+      artifact-name: ${{ needs.build_linux.outputs.artifact-name }}
+    secrets: inherit
+
+  release_mac:
+    needs: [build_linux, build_mac, build_web, build_windows]
+    name: Release
+    uses: ./.github/workflows/release_one.yml
+    with:
+      release-channel: mac-production
+      artifact-name: ${{ needs.build_mac.outputs.artifact-name }}
+    secrets: inherit
+
+  release_web:
+    needs: [build_linux, build_mac, build_web, build_windows]
+    name: Release
+    uses: ./.github/workflows/release_one.yml
+    with:
+      release-channel: web-production
+      artifact-name: ${{ needs.build_web.outputs.artifact-name }}
+    secrets: inherit
+
   release_windows:
-    needs: [build_windows]
+    needs: [build_linux, build_mac, build_web, build_windows]
     name: Release
     uses: ./.github/workflows/release_one.yml
     with:
