@@ -6,30 +6,9 @@ on:
       - main
 
 jobs:
-  build_linux:
-    name: Build
-    uses: ./.github/workflows/build_one.yml
+  build_all:
+    name: Build all
+    uses: ./.github/workflows/build_all.yml
     with:
-      godot-export-preset: linux
       debug-mode: true
 
-  build_mac:
-    name: Build
-    uses: ./.github/workflows/build_one.yml
-    with:
-      godot-export-preset: mac
-      debug-mode: true
-
-  build_web:
-    name: Build
-    uses: ./.github/workflows/build_one.yml
-    with:
-      godot-export-preset: web
-      debug-mode: true
-
-  build_windows:
-    name: Build
-    uses: ./.github/workflows/build_one.yml
-    with:
-      godot-export-preset: windows
-      debug-mode: true
