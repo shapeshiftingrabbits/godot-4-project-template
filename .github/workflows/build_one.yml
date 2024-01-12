@@ -4,6 +4,11 @@ on:
   # Used when triggering this workflow from another workflow
   workflow_call:
     inputs:
+      debug-mode:
+        description: "Whether to export the preset in debug mode. Defaults to true"
+        required: false
+        type: boolean
+        default: true
       godot-export-preset:
         description: "Name of the Godot export preset to use to export the project"
         required: true
@@ -33,6 +38,7 @@ jobs:
       with:
         name: ${{ env.EXPORT_NAME }}
         preset: ${{ inputs.godot-export-preset }}
+        debugMode: ${{ inputs.debug-mode }}
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
