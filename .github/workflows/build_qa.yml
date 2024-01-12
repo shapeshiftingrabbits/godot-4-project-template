@@ -1,0 +1,35 @@
+name: Build QA
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_linux:
+    name: Build
+    uses: ./.github/workflows/build_one.yml
+    with:
+      godot-export-preset: linux
+      debug-mode: true
+
+  build_mac:
+    name: Build
+    uses: ./.github/workflows/build_one.yml
+    with:
+      godot-export-preset: mac
+      debug-mode: true
+
+  build_web:
+    name: Build
+    uses: ./.github/workflows/build_one.yml
+    with:
+      godot-export-preset: web
+      debug-mode: true
+
+  build_windows:
+    name: Build
+    uses: ./.github/workflows/build_one.yml
+    with:
+      godot-export-preset: windows
+      debug-mode: true
