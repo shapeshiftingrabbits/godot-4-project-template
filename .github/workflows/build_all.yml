@@ -1,11 +1,14 @@
 name: Build all presets
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  # Used when triggering this workflow from another workflow
   workflow_call:
+    inputs:
+      debug-mode:
+        description: "Whether to export the preset in debug mode. Defaults to true"
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   build_all:
@@ -17,4 +20,4 @@ jobs:
     uses: ./.github/workflows/build_one.yml
     with:
       godot-export-preset: ${{ matrix.godot-export-preset }}
-    secrets: inherit
+      debug-mode: ${{ inputs.debug-mode }}
