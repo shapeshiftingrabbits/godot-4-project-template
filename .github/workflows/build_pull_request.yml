@@ -1,9 +1,6 @@
-name: Build QA
+name: Build PR
 
-on:
-  push:
-    branches:
-      - main
+on: [pull_request]
 
 jobs:
   build_all:
