@@ -42,7 +42,7 @@ jobs:
   release_linux:
     needs: [build_linux, build_mac, build_web, build_windows]
     name: Release
-    uses: ./.github/workflows/release_one.yml
+    uses: ./.github/workflows/release_artifact.yml
     with:
       release-channel: linux-production
       artifact-name: ${{ needs.build_linux.outputs.artifact-name }}
@@ -51,7 +51,7 @@ jobs:
   release_mac:
     needs: [build_linux, build_mac, build_web, build_windows]
     name: Release
-    uses: ./.github/workflows/release_one.yml
+    uses: ./.github/workflows/release_artifact.yml
     with:
       release-channel: mac-production
       artifact-name: ${{ needs.build_mac.outputs.artifact-name }}
@@ -60,7 +60,7 @@ jobs:
   release_web:
     needs: [build_linux, build_mac, build_web, build_windows]
     name: Release
-    uses: ./.github/workflows/release_one.yml
+    uses: ./.github/workflows/release_artifact.yml
     with:
       release-channel: web-production
       artifact-name: ${{ needs.build_web.outputs.artifact-name }}
@@ -69,7 +69,7 @@ jobs:
   release_windows:
     needs: [build_linux, build_mac, build_web, build_windows]
     name: Release
-    uses: ./.github/workflows/release_one.yml
+    uses: ./.github/workflows/release_artifact.yml
     with:
       release-channel: windows-production
       artifact-name: ${{ needs.build_web.outputs.artifact-name }}
