@@ -38,20 +38,69 @@ jobs:
       file-extension: zip
       debug-mode: false
 
-  github_release:
-    needs: [build_linux, build_mac, build_web, build_windows]
-    name: Append artifacts to GitHub release
+  github_release_linux:
+    needs: [build_linux]
+    name: Append Linux artifact to GitHub release
     runs-on: ubuntu-latest
 
     steps:
-      - name: Add artifacts to GitHub release
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build_linux.outputs.artifact-name }}
+
+      - name: Add artifact to GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            ${{ needs.build_linux.outputs.artifact-name }}
-            ${{ needs.build_mac.outputs.artifact-name }}
-            ${{ needs.build_web.outputs.artifact-name }}
-            ${{ needs.build_windows.outputs.artifact-name }}
+          files: ${{ needs.build_linux.outputs.artifact-name }}
+
+  github_release_mac:
+    needs: [build_mac]
+    name: Append macOS artifact to GitHub release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build_mac.outputs.artifact-name }}
+
+      - name: Add artifact to GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ needs.build_mac.outputs.artifact-name }}
+
+  github_release_web:
+    needs: [build_web]
+    name: Append web artifact to GitHub release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build_web.outputs.artifact-name }}
+
+      - name: Add artifact to GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ needs.build_web.outputs.artifact-name }}
+
+  github_release_windows:
+    needs: [build_windows]
+    name: Append Windows artifact to GitHub release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build_windows.outputs.artifact-name }}
+
+      - name: Add artifact to GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ needs.build_windows.outputs.artifact-name }}
 
   release_linux:
     needs: [build_linux, build_mac, build_web, build_windows]
@@ -90,7 +139,7 @@ jobs:
     secrets: inherit
 
   tag_commit:
-    needs: [github_release, release_linux, release_mac, release_web, release_windows]
+    needs: [github_release_linux, github_release_mac, github_release_web, github_release_windows, release_linux, release_mac, release_web, release_windows]
 
     name: Create tag release-${{ github.run_number }}
     runs-on: ubuntu-latest
