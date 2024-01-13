@@ -38,6 +38,21 @@ jobs:
       file-extension: zip
       debug-mode: false
 
+  github_release:
+    needs: [build_linux, build_mac, build_web, build_windows]
+    name: Append artifacts to GitHub release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add artifacts to GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{ needs.build_linux.outputs.artifact-name }}
+            ${{ needs.build_mac.outputs.artifact-name }}
+            ${{ needs.build_web.outputs.artifact-name }}
+            ${{ needs.build_windows.outputs.artifact-name }}
+
   release_linux:
     needs: [build_linux, build_mac, build_web, build_windows]
     name: Release
@@ -75,7 +90,7 @@ jobs:
     secrets: inherit
 
   tag_commit:
-    needs: [release_linux, release_mac, release_web, release_windows]
+    needs: [github_release, release_linux, release_mac, release_web, release_windows]
 
     name: Create tag release-${{ github.run_number }}
     runs-on: ubuntu-latest
