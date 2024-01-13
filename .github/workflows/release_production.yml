@@ -28,6 +28,7 @@ jobs:
     with:
       godot-export-preset: web
       file-extension: exe
+      export-file-name: index
       debug-mode: false
 
   build_windows:
