@@ -28,7 +28,6 @@ on:
         value: ${{ jobs.build.outputs.artifact-name }}
 
 env:
-  EXPORT_NAME: godot-wild-jam-65
   GODOT_VERSION: 4.2.1
 
 jobs:
@@ -60,13 +59,6 @@ jobs:
         name: ${{ vars.ARTIFACT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
         path: ./build/${{ inputs.godot-export-preset }}
         if-no-files-found: error
-
-    # - name: Upload artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: ${{ env.EXPORT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
-    #     path: ${{ github.workspace }}/${{ steps.export.outputs.build }}
-    #     if-no-files-found: error
 
     - name: Add artifact name to output
       id: add-artifact-name
