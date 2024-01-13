@@ -6,14 +6,14 @@ on:
       - main
 
 jobs:
-  build_all:
+  build_all_presets:
     name: Build all
-    uses: ./.github/workflows/build_all.yml
+    uses: ./.github/workflows/build_all_presets.yml
     with:
       debug-mode: true
 
   tag_commit:
-    needs: [build_all]
+    needs: [build_all_presets]
     name: Tag commit
     runs-on: ubuntu-latest
 

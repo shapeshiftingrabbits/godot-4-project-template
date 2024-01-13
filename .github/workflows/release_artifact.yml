@@ -1,4 +1,4 @@
-name: Release only
+name: Release an artifact
 
 on:
   # Used when triggering this workflow from another workflow
