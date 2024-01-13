@@ -53,6 +53,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ needs.build_linux.outputs.artifact-name }}
+          fail_on_unmatched_files: true
 
   github_release_mac:
     needs: [build_mac]
@@ -69,6 +70,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ needs.build_mac.outputs.artifact-name }}
+          fail_on_unmatched_files: true
 
   github_release_web:
     needs: [build_web]
@@ -85,6 +87,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ needs.build_web.outputs.artifact-name }}
+          fail_on_unmatched_files: true
 
   github_release_windows:
     needs: [build_windows]
@@ -101,6 +104,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ needs.build_windows.outputs.artifact-name }}
+          fail_on_unmatched_files: true
 
   release_linux:
     needs: [build_linux, build_mac, build_web, build_windows]
