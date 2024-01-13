@@ -20,10 +20,10 @@ jobs:
             file-extension: x86_64
           - godot-export-preset: mac
             file-extension: zip
-          - godot-export-preset: windows
-            file-extension: exe
           - godot-export-preset: web
             file-extension: zip
+          - godot-export-preset: windows
+            file-extension: exe
 
     uses: ./.github/workflows/build_one.yml
     with:
