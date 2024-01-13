@@ -28,7 +28,6 @@ on:
         value: ${{ jobs.build.outputs.artifact-name }}
 
 env:
-  EXPORT_NAME: godot-wild-jam-65
   GODOT_VERSION: 4.2.1
 
 jobs:
