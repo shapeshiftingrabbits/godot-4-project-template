@@ -52,7 +52,7 @@ jobs:
       - name: Add artifact to GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ needs.build_linux.outputs.artifact-name }}
+          files: ${{ needs.build_linux.outputs.artifact-name }}.zip
           fail_on_unmatched_files: true
 
   github_release_mac:
@@ -69,7 +69,7 @@ jobs:
       - name: Add artifact to GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ needs.build_mac.outputs.artifact-name }}
+          files: ${{ needs.build_mac.outputs.artifact-name }}.zip
           fail_on_unmatched_files: true
 
   github_release_web:
@@ -86,7 +86,7 @@ jobs:
       - name: Add artifact to GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ needs.build_web.outputs.artifact-name }}
+          files: ${{ needs.build_web.outputs.artifact-name }}.zip
           fail_on_unmatched_files: true
 
   github_release_windows:
@@ -103,7 +103,7 @@ jobs:
       - name: Add artifact to GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ needs.build_windows.outputs.artifact-name }}
+          files: ${{ needs.build_windows.outputs.artifact-name }}.zip
           fail_on_unmatched_files: true
 
   release_linux:
