@@ -8,7 +8,7 @@ on:
 jobs:
   build_linux:
     name: Build
-    uses: ./.github/workflows/build_one.yml
+    uses: ./.github/workflows/build_single_preset.yml
     with:
       godot-export-preset: linux
       file-extension: x86_64
@@ -16,7 +16,7 @@ jobs:
 
   build_mac:
     name: Build
-    uses: ./.github/workflows/build_one.yml
+    uses: ./.github/workflows/build_single_preset.yml
     with:
       godot-export-preset: mac
       file-extension: zip
@@ -24,7 +24,7 @@ jobs:
 
   build_web:
     name: Build
-    uses: ./.github/workflows/build_one.yml
+    uses: ./.github/workflows/build_single_preset.yml
     with:
       godot-export-preset: web
       file-extension: exe
@@ -33,7 +33,7 @@ jobs:
 
   build_windows:
     name: Build
-    uses: ./.github/workflows/build_one.yml
+    uses: ./.github/workflows/build_single_preset.yml
     with:
       godot-export-preset: windows
       file-extension: zip
