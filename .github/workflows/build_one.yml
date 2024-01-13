@@ -9,6 +9,11 @@ on:
         required: false
         type: boolean
         default: true
+      export-file-name:
+        description: "Name of the file that will be generated from the export"
+        required: false
+        type: string
+        default: ${{ vars.ARTIFACT_NAME }}
       file-extension:
         description: "Extension to export to"
         required: true
@@ -47,12 +52,12 @@ jobs:
     - name: Build ${{ inputs.godot-export-preset }}
       run: |
         mkdir -v -p build/${{ inputs.godot-export-preset }}
-        godot --headless --verbose --export-release "${{ inputs.godot-export-preset }}" ./build/${{ inputs.godot-export-preset }}/${{ env.EXPORT_NAME }}.zip
+        godot --headless --verbose --export-release "${{ inputs.godot-export-preset }}" ./build/${{ inputs.godot-export-preset }}/${{ inputs.export-file-name }}.zip
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.EXPORT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
+        name: ${{ vars.ARTIFACT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
         path: ./build/${{ inputs.godot-export-preset }}
         if-no-files-found: error
 
@@ -65,4 +70,4 @@ jobs:
 
     - name: Add artifact name to output
       id: add-artifact-name
-      run: echo "artifact-name=${{ env.EXPORT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}" >> "$GITHUB_OUTPUT"
+      run: echo "artifact-name=${{ vars.ARTIFACT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}" >> "$GITHUB_OUTPUT"
