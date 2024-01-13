@@ -1,20 +1,32 @@
 name: Build all presets
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  # Used when triggering this workflow from another workflow
   workflow_call:
+    inputs:
+      debug-mode:
+        description: "Whether to export the preset in debug mode. Defaults to true"
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   build_all:
     name: Build all presets
     strategy:
       matrix:
-        godot-export-preset: ['linux', 'mac', 'windows', 'web']
+        platform:
+          - godot-export-preset: linux
+            file-extension: x86_64
+          - godot-export-preset: mac
+            file-extension: zip
+          - godot-export-preset: web
+            file-extension: zip
+          - godot-export-preset: windows
+            file-extension: exe
 
     uses: ./.github/workflows/build_one.yml
     with:
-      godot-export-preset: ${{ matrix.godot-export-preset }}
-    secrets: inherit
+      godot-export-preset: ${{ matrix.platform.godot-export-preset }}
+      file-extension: ${{ matrix.platform.file-extension }}
+      debug-mode: ${{ inputs.debug-mode }}

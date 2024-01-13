@@ -1,0 +1,10 @@
+name: Build PR
+
+on: [pull_request]
+
+jobs:
+  build_all:
+    name: Build all
+    uses: ./.github/workflows/build_all.yml
+    with:
+      debug-mode: true
