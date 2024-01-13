@@ -60,13 +60,6 @@ jobs:
         path: ./build/${{ inputs.godot-export-preset }}
         if-no-files-found: error
 
-    # - name: Upload artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: ${{ env.EXPORT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
-    #     path: ${{ github.workspace }}/${{ steps.export.outputs.build }}
-    #     if-no-files-found: error
-
     - name: Add artifact name to output
       id: add-artifact-name
       run: echo "artifact-name=${{ vars.ARTIFACT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}" >> "$GITHUB_OUTPUT"
