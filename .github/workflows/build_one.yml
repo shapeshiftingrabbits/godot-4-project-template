@@ -9,6 +9,10 @@ on:
         required: false
         type: boolean
         default: true
+      file-extension:
+        description: "Extension to export to"
+        required: true
+        type: string
       godot-export-preset:
         description: "Name of the Godot export preset to use to export the project"
         required: true
@@ -20,11 +24,14 @@ on:
 
 env:
   EXPORT_NAME: godot-wild-jam-65
+  GODOT_VERSION: 4.2.1
 
 jobs:
   build:
     name: ${{ inputs.godot-export-preset }}
     runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.2.1
     outputs:
       artifact-name: ${{ steps.add-artifact-name.outputs.artifact-name }}
 
@@ -32,20 +39,29 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Export project to ${{ inputs.godot-export-preset }}
-      id: export
-      uses: manleydev/build-godot-action@v1.5.0
-      with:
-        name: ${{ env.EXPORT_NAME }}
-        preset: ${{ inputs.godot-export-preset }}
-        debugMode: ${{ inputs.debug-mode }}
+    - name: Setup
+      run: |
+        mkdir -v -p ~/.local/share/godot/export_templates
+        mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
 
-    - name: Upload artifact
+    - name: Build ${{ inputs.godot-export-preset }}
+      run: |
+        mkdir -v -p build/${{ inputs.godot-export-preset }}
+        godot --headless --verbose --export-release "${{ inputs.godot-export-preset }}" ./build/${{ inputs.godot-export-preset }}/${{ env.EXPORT_NAME }}.zip
+
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.EXPORT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
-        path: ${{ github.workspace }}/${{ steps.export.outputs.build }}
+        path: ./build/${{ inputs.godot-export-preset }}
         if-no-files-found: error
+
+    # - name: Upload artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ${{ env.EXPORT_NAME }}-${{ inputs.godot-export-preset }}-${{ github.sha }}
+    #     path: ${{ github.workspace }}/${{ steps.export.outputs.build }}
+    #     if-no-files-found: error
 
     - name: Add artifact name to output
       id: add-artifact-name

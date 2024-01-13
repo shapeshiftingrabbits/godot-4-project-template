@@ -11,6 +11,7 @@ jobs:
     uses: ./.github/workflows/build_one.yml
     with:
       godot-export-preset: linux
+      file-extension: x86_64
       debug-mode: false
 
   build_mac:
@@ -18,6 +19,7 @@ jobs:
     uses: ./.github/workflows/build_one.yml
     with:
       godot-export-preset: mac
+      file-extension: zip
       debug-mode: false
 
   build_web:
@@ -25,6 +27,7 @@ jobs:
     uses: ./.github/workflows/build_one.yml
     with:
       godot-export-preset: web
+      file-extension: exe
       debug-mode: false
 
   build_windows:
@@ -32,6 +35,7 @@ jobs:
     uses: ./.github/workflows/build_one.yml
     with:
       godot-export-preset: windows
+      file-extension: zip
       debug-mode: false
 
   release_linux:
