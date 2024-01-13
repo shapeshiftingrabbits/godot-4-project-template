@@ -3,8 +3,8 @@ name: Build PR
 on: [pull_request]
 
 jobs:
-  build_all:
+  build_all_presets:
     name: Build all
-    uses: ./.github/workflows/build_all.yml
+    uses: ./.github/workflows/build_all_presets.yml
     with:
       debug-mode: true

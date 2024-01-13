@@ -25,7 +25,7 @@ jobs:
           - godot-export-preset: windows
             file-extension: exe
 
-    uses: ./.github/workflows/build_one.yml
+    uses: ./.github/workflows/build_single_preset.yml
     with:
       godot-export-preset: ${{ matrix.platform.godot-export-preset }}
       file-extension: ${{ matrix.platform.file-extension }}
