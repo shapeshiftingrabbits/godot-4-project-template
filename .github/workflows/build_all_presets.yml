@@ -24,6 +24,7 @@ jobs:
             file-extension: zip
           - godot-export-preset: windows
             file-extension: exe
+      fail-fast: false
 
     uses: ./.github/workflows/build_single_preset.yml
     with:
