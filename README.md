@@ -1,8 +1,8 @@
-# Godot Project Template
+# Godot 4 Project Template
 
-[![Build QA](https://github.com/shapeshiftingrabbits/godot-project-template/actions/workflows/build_qa.yml/badge.svg)](https://github.com/shapeshiftingrabbits/godot-project-template/actions/workflows/build_qa.yml)
+[![Build QA](https://github.com/shapeshiftingrabbits/godot-4-project-template/actions/workflows/build_qa.yml/badge.svg)](https://github.com/shapeshiftingrabbits/godot-4-project-template/actions/workflows/build_qa.yml)
 
-[![Release to production](https://github.com/shapeshiftingrabbits/godot-project-template/actions/workflows/release_production.yml/badge.svg)](https://github.com/shapeshiftingrabbits/godot-project-template/actions/workflows/release_production.yml)
+[![Release to production](https://github.com/shapeshiftingrabbits/godot-4-project-template/actions/workflows/release_production.yml/badge.svg)](https://github.com/shapeshiftingrabbits/godot-4-project-template/actions/workflows/release_production.yml)
 
 ## GitHub Action Workflows
 
