@@ -35,7 +35,7 @@ jobs:
     uses: ./.github/workflows/build_single_preset.yml
     with:
       godot-export-preset: windows
-      file-extension: zip
+      file-extension: exe
       debug-mode: false
 
   release_linux:
