@@ -71,7 +71,7 @@ jobs:
     uses: ./.github/workflows/release_artifact.yml
     with:
       release-channel: windows-production
-      artifact-name: ${{ needs.build_web.outputs.artifact-name }}
+      artifact-name: ${{ needs.build_windows.outputs.artifact-name }}
     secrets: inherit
 
   tag_commit:
