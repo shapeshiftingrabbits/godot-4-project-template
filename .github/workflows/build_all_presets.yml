@@ -21,7 +21,7 @@ jobs:
           - godot-export-preset: mac
             file-extension: zip
           - godot-export-preset: web
-            file-extension: zip
+            file-extension: html
           - godot-export-preset: windows
             file-extension: exe
 
