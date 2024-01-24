@@ -35,7 +35,7 @@ jobs:
     name: ${{ inputs.godot-export-preset }}
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:4.2.1
+      image: barichello/godot-ci:${{ env.GODOT_VERSION }}
     outputs:
       artifact-name: ${{ steps.add-artifact-name.outputs.artifact-name }}
 
