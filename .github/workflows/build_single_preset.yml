@@ -51,7 +51,7 @@ jobs:
     - name: Build ${{ inputs.godot-export-preset }}
       run: |
         mkdir -v -p build/${{ inputs.godot-export-preset }}
-        godot --headless --verbose --export-release "${{ inputs.godot-export-preset }}" ./build/${{ inputs.godot-export-preset }}/${{ inputs.export-file-name }}.zip
+        godot --headless --verbose --export-release "${{ inputs.godot-export-preset }}" ./build/${{ inputs.godot-export-preset }}/${{ inputs.export-file-name }}.${{ inputs.file-extension }}
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
