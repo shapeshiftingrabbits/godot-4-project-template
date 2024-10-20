@@ -28,14 +28,14 @@ on:
         value: ${{ jobs.build.outputs.artifact-name }}
 
 env:
-  GODOT_VERSION: 4.2.1
+  GODOT_VERSION: 4.3
 
 jobs:
   build:
     name: ${{ inputs.godot-export-preset }}
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:4.2.1
+      image: barichello/godot-ci:4.3
     outputs:
       artifact-name: ${{ steps.add-artifact-name.outputs.artifact-name }}
 
