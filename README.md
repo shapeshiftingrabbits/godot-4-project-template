@@ -15,25 +15,24 @@ This template is for Godot version: 4.3
   - Go to the settings of your repository and add them as shown in the screenshot below.
 ![action secret screenshot](./doc/action_secrets_screenshot.png)
 
-### How to update
+### How to update Godot version
 
-When using a different version of Godot, you need to update the github action image.
+When using a different version of Godot, you need to:
 
-- in [build_single_preset.yml](./.github/workflows/build_single_preset.yml)
-  - Update the GODOT_VERSION environment variable, with the version of Godot you use.
+- Update the Godot version of the project itself, by opening this repository with Godot. Godot should do the update when prompted.
+- In [build_single_preset.yml](./.github/workflows/build_single_preset.yml)
+  - Update the `GODOT_VERSION` environment variable with the Godot version you use. E.g.
 
-    ```#yaml
+    ```yaml
     env:
       GODOT_VERSION: 4.3
     ```
 
-  - Update the Godot version of the project itself.(By opening the project with Godot. It should do the update when prompted.)
+  - Update the docker image, the latest supported version should be used in the project's [template action](https://github.com/abarichello/godot-ci/blob/master/.github/workflows/godot-ci.yml). E.g.
 
-  - Update the docker image, the latest supported version should be used in the project template's [action](https://github.com/abarichello/godot-ci/blob/master/.github/workflows/godot-ci.yml).
-
-    ```#yaml
+    ```yaml
     container:
-          image: barichello/godot-ci:4.3
+      image: barichello/godot-ci:4.3
     ```
 
   - Check if other github actions need updating. Do a global search on the project on the term `uses:` and check if new versions are available.
@@ -99,3 +98,7 @@ flowchart TB
   1. We upload the artifacts to Itch.io
   1. We tag the commit used to create the release with the 'Release' build job number, so we are able to reference a commit back to a specific 'Release' build job and its specific artifacts
 
+TODO:
+- Fix yaml syntax highlighting
+- Add instructions for vars.ARTIFACT_NAME
+- Update title of sections
