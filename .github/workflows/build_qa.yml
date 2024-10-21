@@ -22,7 +22,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Create tag qa-${{ github.run_number }}
-      uses: mathieudutour/github-tag-action@v6.1
+      uses: mathieudutour/github-tag-action@v6.2
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         custom_tag: qa-${{ github.run_number }}
