@@ -8,7 +8,7 @@
 
 This template is for Godot version: 4.3
 
-### How to use
+### How to setup
 
 - When using this template, you need to set the variables and secrets used by the [github action which push the builds to itch.io](https://github.com/marketplace/actions/butler-push).
   - Do a global search for the string `secrets.` on the project to find the variables that need to be set.
@@ -38,7 +38,19 @@ When using a different version of Godot, you need to update the github action im
 
   - Check if other github actions need updating. Do a global search on the project on the term `uses:` and check if new versions are available.
 
-### Diagram
+### How it works
+
+- Create `debug` artefacts (builds) for the 4 platforms: web, windows, linux and mac.
+  - Push changes to main, create a pull request or do a manual trigger on `build_all_presets.yml`.
+- Publish `release` artefacts on itch.io
+  - Create a Github release.
+
+**TODO**
+
+- Create an artefact for 1 platform
+  - Do a manual trigger on build_single_preset
+
+#### Diagram
 
 ```mermaid
 flowchart TB
@@ -49,7 +61,7 @@ flowchart TB
     release_production_all["Release builds of all presets to production channels"]
     release_production_one["Release build of one preset to its production channel"]
 
-    release_qa_all_manual_trigger{{"Manual trigger"}}:::todo
+    release_qa_all_manual_trigger{{"Manual trigger on Build QA worflow"}}
     release_qa_all["Build all presets"]
 
     pull_request_trigger{{"Pull Request created or pushed to"}}
