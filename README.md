@@ -27,6 +27,8 @@ When using a different version of Godot, you need to update the github action im
       GODOT_VERSION: 4.3
     ```
 
+  - Update the Godot version of the project itself.(By opening the project with Godot. It should do the update when prompted.)
+
   - Update the docker image, the latest supported version should be used in the project template's [action](https://github.com/abarichello/godot-ci/blob/master/.github/workflows/godot-ci.yml).
 
     ```#yaml
