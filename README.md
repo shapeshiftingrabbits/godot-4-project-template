@@ -6,22 +6,35 @@
 
 ## GitHub Action Workflows
 
-### Intentions and processes
+This template is for Godot version: 4.3
 
-- We want to be able to test builds before merging code changes to `main`
-  - We generate downloadable artifacts when creating a PR
-  - We generate further artifacts for further changes in the PR
-- We want to be able to test builds after merging code changes to `main`
-  - We this ability call this 'QA'
-  - We generate downloadable artifacts after merging to `main`, with debug mode on
-  - We tag commits to `main` with the 'QA' build job number, so we are able to reference a commit back to a specific 'QA' build job and its specific artifacts
-- We want to be able to release the game from specific commits on `main` we are happy with
-  1. We manually publish a GitHub release with a new version number
-     - This version number will be publicly visible
-     - The version number progression does not necessarily follow semantic versioning
-  1. We generate artifacts, with debug mode off
-  1. We upload the artifacts to Itch.io
-  1. We tag the commit used to create the release with the 'Release' build job number, so we are able to reference a commit back to a specific 'Release' build job and its specific artifacts
+### How to use
+
+- When using this template, you need to set the variables and secrets used by the [github action which push the builds to itch.io](https://github.com/marketplace/actions/butler-push).
+  - Do a global search for the string `secrets.` on the project to find the variables that need to be set.
+  - Go to the settings of your repository and add them as shown in the screenshot below.
+![action secret screenshot](./doc/action_secrets_screenshot.png)
+
+### How to update
+
+When using a different version of Godot, you need to update the github action image.
+
+- in [build_single_preset.yml](./.github/workflows/build_single_preset.yml)
+  - Update the GODOT_VERSION environment variable, with the version of Godot you use.
+
+    ```#yaml
+    env:
+      GODOT_VERSION: 4.3
+    ```
+
+  - Update the docker image, the latest supported version should be used in the project template's [action](https://github.com/abarichello/godot-ci/blob/master/.github/workflows/godot-ci.yml).
+
+    ```#yaml
+    container:
+          image: barichello/godot-ci:4.3
+    ```
+
+  - Check if other github actions need updating. Do a global search on the project on the term `uses:` and check if new versions are available.
 
 ### Diagram
 
@@ -54,3 +67,21 @@ flowchart TB
     build_all -- debug: true --> build_one
     build_manual_trigger --> build_one
 ```
+
+### Intentions and processes
+
+- We want to be able to test builds before merging code changes to `main`
+  - We generate downloadable artifacts when creating a PR
+  - We generate further artifacts for further changes in the PR
+- We want to be able to test builds after merging code changes to `main`
+  - We this ability call this 'QA'
+  - We generate downloadable artifacts after merging to `main`, with debug mode on
+  - We tag commits to `main` with the 'QA' build job number, so we are able to reference a commit back to a specific 'QA' build job and its specific artifacts
+- We want to be able to release the game from specific commits on `main` we are happy with
+  1. We manually publish a GitHub release with a new version number
+     - This version number will be publicly visible
+     - The version number progression does not necessarily follow semantic versioning
+  1. We generate artifacts, with debug mode off
+  1. We upload the artifacts to Itch.io
+  1. We tag the commit used to create the release with the 'Release' build job number, so we are able to reference a commit back to a specific 'Release' build job and its specific artifacts
+
