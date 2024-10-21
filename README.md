@@ -10,10 +10,15 @@ This template is for Godot version: 4.3
 
 ### How to setup
 
-- When using this template, you need to set the variables and secrets used by the [github action which push the builds to itch.io](https://github.com/marketplace/actions/butler-push).
+When using this template, you need to set the variables and secrets used by GitHub Actions.
+
+- Secrets used by the [Github Action that pushes builds to itch.io](https://github.com/marketplace/actions/butler-push)
   - Do a global search for the string `secrets.` on the project to find the variables that need to be set.
   - Go to the settings of your repository and add them as shown in the screenshot below.
-![action secret screenshot](./doc/action_secrets_screenshot.png)
+![action secrets screenshot](./doc/action_secrets_screenshot.png)
+- The `vars.ARTIFACT_NAME` repository variable, which will prefix the name of the artifact files
+  - Go to the settings of your repository and add them as shown in the screenshot below.
+![action variables screenshot](./doc/action_variables_screenshot.png)
 
 ### How to update Godot version
 
