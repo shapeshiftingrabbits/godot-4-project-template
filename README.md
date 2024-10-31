@@ -19,6 +19,9 @@ When using this template, you need to set the variables and secrets used by GitH
 - The `vars.ARTIFACT_NAME` repository variable, which will prefix the name of the artifact files
   - Go to the settings of your repository and add them as shown in the screenshot below.
 ![action variables screenshot](./doc/action_variables_screenshot.png)
+- Give workflows write permissions, so they can create it tags shown in the screenshot below.
+
+  ![action permissions screenshot](./doc/action_permissions_screenshot.png)
 
 ### How to update Godot version
 
